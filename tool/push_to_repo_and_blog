@@ -14,29 +14,42 @@ markdown_file=$1
 assets_dir=$2
 pdf_file=$3
 
+# -------- https://github.com/Anu-bhav/Posts  -------- #
 backup_dir="/d/Documents/Development/website_github/Posts/"
+post_dir="$backup_dir/$name"
+post_pdf_dir="$backup_dir/PDF/"
+
+mkdir "$post_dir"
 
 for post in "$@"; do
-    if [ -e "$backup_dir/$post" ]; then
+    if [ -e "$post_dir/$post" ]; then
         echo "$post already exists"
     else
-        cp -afr "$post" $backup_dir && echo "Successfully copied $post to backup_dir"
+        cp -afr "$post" "$post_dir" && echo "Successfully copied $post to post_dir"
     fi
 done
+
+cp -afr "$pdf_file" $post_pdf_dir && echo "Successfully copied $pdf_file to post_pdf_dir"
 
 cd $backup_dir || return
 git add . && git commit -a -m "$name added" && git push
 cd - > /dev/null 2>&1 || return
+# -------- https://github.com/Anu-bhav/Posts  -------- #
 
+
+# -------- https://github.com/Anu-bhav/Portfolio-Blog  -------- #
 blog_path="/d/Documents/Development/website_github/Portfolio-Blog/src/routes/blog/posts/"
 cp -afr "$markdown_file" $blog_path && echo "Successfully copied $markdown_file to blog_path"
 # chmod 777 $blog_path/*
 
 static_path="/d/Documents/Development/website_github/Portfolio-Blog/static/"
-cp -afr "$assets_dir" "$pdf_file" $static_path && echo "Successfully copied $pdf_file to static_path"
+pdf_path="/d/Documents/Development/website_github/Portfolio-Blog/static/pdf/"
+cp -afr "$assets_dir" $static_path && echo "Successfully copied $assets_dir to static_path"
+cp -afr "$pdf_file" $pdf_path && echo "Successfully copied $pdf_file to pdf_path"
 
 blog_dir="/d/Documents/Development/website_github/Portfolio-Blog/"
 cd $blog_dir || return
 git add . && git commit -a -m "new blog post $name added" && git push
 cd - > /dev/null 2>&1 || return
+# -------- https://github.com/Anu-bhav/Portfolio-Blog  -------- #
 
