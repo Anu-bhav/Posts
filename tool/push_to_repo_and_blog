@@ -1,0 +1,42 @@
+#! /bin/bash -x
+
+# run this in my wsl only and not in Kali VM
+
+if [ "$#" -ne 3 ]; then
+    echo "usage: $0 <input.md> <input.assets> <input.pdf>"
+    exit
+fi
+
+input=$1
+name="${input%.*}"
+
+markdown_file=$1
+assets_dir=$2
+pdf_file=$3
+
+backup_dir="/d/Documents/Development/website_github/Posts/"
+
+for post in "$@"; do
+    if [ -e "$backup_dir/$post" ]; then
+        echo "$post already exists"
+    else
+        cp -afr "$post" $backup_dir && echo "Successfully copied $post to backup_dir"
+    fi
+done
+
+cd $backup_dir || return
+git add . && git commit -a -m "$name added" && git push
+cd - > /dev/null 2>&1 || return
+
+blog_path="/d/Documents/Development/website_github/Portfolio-Blog/src/routes/blog/posts/"
+cp -afr "$markdown_file" $blog_path && echo "Successfully copied $markdown_file to blog_path"
+# chmod 777 $blog_path/*
+
+static_path="/d/Documents/Development/website_github/Portfolio-Blog/static/"
+cp -afr "$assets_dir" "$pdf_file" $static_path && echo "Successfully copied $pdf_file to static_path"
+
+blog_dir="/d/Documents/Development/website_github/Portfolio-Blog/"
+cd $blog_dir || return
+git add . && git commit -a -m "new blog post $name added" && git push
+cd - > /dev/null 2>&1 || return
+

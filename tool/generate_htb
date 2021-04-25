@@ -1,0 +1,33 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then
+	echo "usage: $0 <input.md>"
+	exit
+fi
+
+input=$1
+output="${input%.*}.pdf"
+
+sed -E -i 's/!\[.*?\]/![]/g' $input
+sed -i "s/DATE_NOW/$(date '+%Y-%m-%d')/" $input
+
+# if this machine does not have the template in place, put it there!
+if [ ! -e /usr/share/pandoc/data/templates/eisvogel.latex ]
+then
+	sudo cp eisvogel.latex /usr/share/pandoc/data/templates/
+fi
+
+pandoc --pdf-engine=xelatex \
+--highlight-style breezeDark \
+-V colorlinks -V urlcolor=NavyBlue \
+--from markdown+yaml_metadata_block+raw_html \
+--template eisvogel \
+-o $output \
+$input 
+
+
+if [ $? -eq 0 ]
+then
+	atril $output &
+	disown
+fi
