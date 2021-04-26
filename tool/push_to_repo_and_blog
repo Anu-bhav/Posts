@@ -16,17 +16,17 @@ pdf_file=$3
 
 # -------- https://github.com/Anu-bhav/Posts  -------- #
 backup_dir="/d/Documents/Development/website_github/Posts/"
-post_dir="$backup_dir/$name"
+post_dir="$backup_dir$name"
 post_pdf_dir="$backup_dir/PDF/"
 
 mkdir "$post_dir"
 
 for post in "$@"; do
-    if [ -e "$post_dir/$post" ]; then
-        echo "$post already exists"
-    else
-        cp -afr "$post" "$post_dir" && echo "Successfully copied $post to post_dir"
-    fi
+    # if [ -e "$post_dir/$post" ]; then
+    #     echo "$post already exists"
+    # else
+    cp -afr "$post" "$post_dir" && echo "Successfully copied $post to post_dir"
+    # fi
 done
 
 cp -afr "$pdf_file" $post_pdf_dir && echo "Successfully copied $pdf_file to post_pdf_dir"

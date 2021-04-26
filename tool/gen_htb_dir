@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then
+    echo "usage: $0 <Machine Name>"
+    exit
+fi
+
+name=$1
+name_upper=${name^}
+
+mkdir -p ~/htb/$name/{notes,nmap,log}
+cp ~/htb/template.md ~/htb/$name/notes/"$name_upper.md" 
+sed -i "s/Box/$name_upper/g" ~/htb/$name/notes/"$name_upper.md"
+cd ~/htb/$name/
+$SHELL
