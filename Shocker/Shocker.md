@@ -10,7 +10,7 @@ classoption: oneside
 code-block-font-size: \scriptsize   
 output: 
   pdf_document:
-    fig_caption: FALSE
+    fig_caption: false
 ---
 
 # Shocker - 10.10.10.56
@@ -45,7 +45,7 @@ Nmap done: 1 IP address (1 host up) scanned in 46.91 seconds
 
 The Ubuntu version is most likely **Xenial**, source: [https://packages.ubuntu.com/search?keywords=apache2](https://packages.ubuntu.com/search?keywords=apache2)
 
-<img src="Shocker.assets/image-20210425225756592.png" alt="image-20210425225756592" style="zoom:67%;" />
+![](Shocker.assets/image-20210425225756592.png)
 
 ## Gobuster
 
@@ -53,7 +53,7 @@ The Ubuntu version is most likely **Xenial**, source: [https://packages.ubuntu.c
 gobuster dir -t 30 -w /usr/share/seclists/Discovery/Web-Content/common.txt -u http://10.10.10.56 -o log/gobuster.out 
 ```
 
-<img src="Shocker.assets/image-20210425225231743.png" alt="image-20210425225231743" style="zoom:67%;" />
+![](Shocker.assets/image-20210425225231743.png)
 
 The directory **/cgi-bin/** is used when apache gives a certain tasks to a scripting language such as Bash, Python.
 
@@ -71,15 +71,15 @@ Even if an attacker cannot list the contents of the **/cgi-bin/** directory, the
 
 Gobuster is being ran with several extensions to find if there are any files present. 
 
-<img src="Shocker.assets/image-20210425230918395.png" alt="image-20210425230918395" style="zoom: 67%;" />
+![](Shocker.assets/image-20210425230918395.png)
 
 The file **user.sh** is found in the **/cgi-bin/** directory. On going to the file, the attacker is prompted to download dialog.
 
-<img src="Shocker.assets/image-20210425231530638.png" alt="image-20210425231530638" style="zoom:67%;" />
+![](Shocker.assets/image-20210425231530638.png)
 
 The content of **user.sh** looks to be the output of the bash command **uptime**
 
-<img src="Shocker.assets/image-20210425231801722.png" alt="image-20210425231801722" style="zoom:80%;" />
+![](Shocker.assets/image-20210425231801722.png)
 
 # Exploitation
 
@@ -134,7 +134,7 @@ The user shelly can execute perl as root
 sudo -l
 ```
 
-```
+```bash
 Matching Defaults entries for shelly on Shocker:
     env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
@@ -151,7 +151,7 @@ Running perl as root, the attacker can break out from the restricted environment
 
 source: [https://gtfobins.github.io/gtfobins/perl/](https://gtfobins.github.io/gtfobins/perl/)
 
-<img src="Shocker.assets/image-20210426012904228.png" alt="image-20210426012904228" style="zoom:67%;" />
+![](Shocker.assets/image-20210426012904228.png)
 
 ```bash
 sudo -l
