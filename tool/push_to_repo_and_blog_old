@@ -8,28 +8,31 @@
 # fi
 
 if [ "$#" -ne 1 ]; then
-    echo "usage: $0 <Machine Name>"
+    echo "usage: $0 <Input.md>"
     exit
 fi
 
 input=$1
 name="${input%.*}"
-name="${name^}"
 
 markdown_file="$name.md"
 assets_dir="$name.assets"
 pdf_file="$name.pdf"
 
-# echo $markdown_file $assets_dir $pdf_file
-
 # -------- https://github.com/Anu-bhav/Posts  -------- #
-backup_dir="/d/Documents/Development/website_github/Posts"
-post_dir="$backup_dir/$name"
+backup_dir="/d/Documents/Development/website_github/Posts/"
+post_dir="$backup_dir$name"
 post_pdf_dir="$backup_dir/PDF/"
 
 mkdir "$post_dir"
 
-cp -afr "$markdown_file" "$assets_dir" "$pdf_file" "$post_dir" && echo "Successfully copied $markdown_file $assets_dir $pdf_file to post_dir"
+for post in "$@"; do
+    # if [ -e "$post_dir/$post" ]; then
+    #     echo "$post already exists"
+    # else
+    cp -afr "$post" "$post_dir" && echo "Successfully copied $post to post_dir"
+    # fi
+done
 
 cp -afr "$pdf_file" $post_pdf_dir && echo "Successfully copied $pdf_file to post_pdf_dir"
 
