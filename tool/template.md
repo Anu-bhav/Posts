@@ -3,7 +3,7 @@ title: "HTB - Box"
 author: "Anubhavsingh Sawdagur"
 date: "DATE_NOW"
 subject: "Markdown"
-subtitle: "10.10.10.56"
+subtitle: "10.10.10."
 lang: "en-GB"
 book: true
 classoption: oneside
