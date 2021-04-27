@@ -3,7 +3,7 @@ title: "HTB - Bashed"
 author: "Anubhavsingh Sawdagur"
 date: "2021-04-26"
 subject: "Markdown"
-subtitle: "10.10.10.56"
+subtitle: "10.10.10.68"
 lang: "en-GB"
 book: true
 classoption: oneside
@@ -94,7 +94,6 @@ $ locate php-reverse
 /usr/share/laudanum/wordpress/templates/php-reverse-shell.php
 /usr/share/seclists/Web-Shells/laudanum-0.8/php/php-reverse-shell.php
 /usr/share/webshells/php/php-reverse-shell.php
-
 ```
 
 ![](Bashed.assets/image-20210426052146005.png)
