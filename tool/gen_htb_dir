@@ -11,5 +11,10 @@ name_upper=${name^}
 mkdir -p ~/htb/$name/{notes,nmap,log}
 cp ~/htb/template.md ~/htb/$name/notes/"$name_upper.md" 
 sed -i "s/Box/$name_upper/g" ~/htb/$name/notes/"$name_upper.md"
-cd ~/htb/$name/
-$SHELL
+
+HTB="/home/kali/htb/$name"
+tmux send-keys "cd $HTB" C-m
+tmux send-keys "echo kali | sudo -S openvpn /home/kali/htb/htb.ovpn" C-m
+tmux split-window -c "$HTB" "code $HTB"
+tmux split-window -c "$HTB" "typora $HTB/notes &"
+tmux new-window -c "$HTB" -n "recon"
