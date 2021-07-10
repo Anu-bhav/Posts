@@ -52,7 +52,7 @@ cp -afr "$pdf_file" $pdf_path && echo "Successfully copied $pdf_file to pdf_path
 blog_dir="/d/Documents/Development/website_github/Portfolio-Blog/"
 cd $blog_dir || return
 git add . && git commit -a -m "new blog post $name added" && git push
-node pages.js
+npm run custom-deploy
 cd - > /dev/null 2>&1 || return
 # -------- https://github.com/Anu-bhav/Portfolio-Blog  -------- #
 
