@@ -48,7 +48,7 @@ PORT    STATE SERVICE
 
 ### SSL Cert
 
-![](brainfuck.assets/image-20210423092213672.png)
+![](Brainfuck.assets/image-20210423092213672.png)
 
 user : **orestis@brainfuck.htb**
 
@@ -56,19 +56,19 @@ DNS Name: **www.brainfuck.htb, sup3rs3cr3t.brainfuck.htb**
 
 The dns names are added to **/etc/hosts**
 
-![](brainfuck.assets/image-20210423092844295.png)
+![](Brainfuck.assets/image-20210423092844295.png)
 
 ### sup3rs3cr3t.brainfuck.htb
 
 sup3rs3cr3t.brainfuck.htb is a forum webpage.
 
-![](brainfuck.assets/image-20210423100437959.png)
+![](Brainfuck.assets/image-20210423100437959.png)
 
 ### www.brainfuck.htb -> brainfuck.htb
 
 **www.brainfuck.htb** redirects to **brainfuck.htb** which is a *wordpress* website.
 
-![](brainfuck.assets/image-20210423100221583.png)
+![](Brainfuck.assets/image-20210423100221583.png)
 
 
 
@@ -78,19 +78,19 @@ sup3rs3cr3t.brainfuck.htb is a forum webpage.
 wpscan --api-token "zwHNCijstkXlttJouhoslFZG0MYms5Bvks9FMVexaAs" --url "https://brainfuck.htb" --disable-tls-checks -o wpscan.log
 ```
 
-![](brainfuck.assets/image-20210423104733666.png)
+![](Brainfuck.assets/image-20210423104733666.png)
 
 ```bash
 searchsploit WP Support Plus
 ```
 
-![](brainfuck.assets/image-20210423120100898.png)
+![](Brainfuck.assets/image-20210423120100898.png)
 
 ```bash
 wpscan --url "https://brainfuck.htb" --disable-tls-checks --enumerate u -o wpscan_enumerate_user.log 
 ```
 
-![](brainfuck.assets/image-20210423104514064.png)
+![](Brainfuck.assets/image-20210423104514064.png)
 
 Users found:
 
@@ -111,20 +111,20 @@ During enumeration, it was found that the **WP Support Plus** plugin is vulnerab
 searchsploit WP Support Plus 
 ```
 
-![](brainfuck.assets/image-20210424055551012.png)
+![](Brainfuck.assets/image-20210424055551012.png)
 
 ```
 searchsploit -x php/webapps/41006.txt 
 ```
 
-![](brainfuck.assets/image-20210424060023915.png)
+![](Brainfuck.assets/image-20210424060023915.png)
 
 ### Privilege Escalation to admin on wordpress
 
 Using the users enumerated from wpscan, this attack can be performed.
 The payload was modified as show below.
 
-![](brainfuck.assets/image-20210424063910309.png)
+![](Brainfuck.assets/image-20210424063910309.png)
 
 ```html
 <form method="post" action="https://brainfuck.htb/wp-admin/admin-ajax.php">
@@ -141,33 +141,33 @@ The file is hosted using the command below.
 python3 -m http.server 80
 ```
 
-![](brainfuck.assets/image-20210424063117997.png)
+![](Brainfuck.assets/image-20210424063117997.png)
 
 it is then viewed using a browser.
 
-![](brainfuck.assets/image-20210424063217601.png)
+![](Brainfuck.assets/image-20210424063217601.png)
 
 **Vulnerability Explanation:**
 
 When inspecting the traffic in Burpsuite, it can be concluded that the WP Support Plus plugin sets an authenticated cookie to the user without the need of a password.
 
-![](brainfuck.assets/image-20210424064212334.png)
+![](Brainfuck.assets/image-20210424064212334.png)
 
-![](brainfuck.assets/image-20210424064603321.png)
+![](Brainfuck.assets/image-20210424064603321.png)
 
 Once the script is ran, when refreshing the wordpress site, the cookies take effect and, the attacker is automatically authenticated.
 
-![](brainfuck.assets/image-20210424064609386.png)
+![](Brainfuck.assets/image-20210424064609386.png)
 
 ### SMTP Credentials leaked
 
 Going to the **Easy WP SMTP** plugin, information about the user can be found.
 
-![](brainfuck.assets/image-20210424065221953.png)
+![](Brainfuck.assets/image-20210424065221953.png)
 
 In developers console, the password can be seen in cleartext.
 
-![](brainfuck.assets/image-20210424065348596.png)
+![](Brainfuck.assets/image-20210424065348596.png)
 
 ```html
 <input type="password" name="swpsmtp_smtp_password" value="kHGuERB29DNiNE">
@@ -181,21 +181,21 @@ SMTP Credential:
 
 Evolution mail client is configured as shown below to see user orestis mails.
 
-![](brainfuck.assets/image-20210424070158690.png)
+![](Brainfuck.assets/image-20210424070158690.png)
 
-![](brainfuck.assets/image-20210424070425913.png)
+![](Brainfuck.assets/image-20210424070425913.png)
 
-![](brainfuck.assets/image-20210424070431548.png)
+![](Brainfuck.assets/image-20210424070431548.png)
 
-![](brainfuck.assets/image-20210424070507569.png)
+![](Brainfuck.assets/image-20210424070507569.png)
 
 After configuring evolution, user orestis mail can be viewed.
 
-![](brainfuck.assets/image-20210424070539798.png)
+![](Brainfuck.assets/image-20210424070539798.png)
 
 New credentials are revealed, it is for the forum found on the subdomain **sup3rs3cr3t.brainfuck.htb** 
 
-![](brainfuck.assets/image-20210424070838384.png)
+![](Brainfuck.assets/image-20210424070838384.png)
 
 ```
 Hi there, your credentials for our "secret" forum are below :)
@@ -216,15 +216,15 @@ There are 3 topics listed in the forum:
 - SSH Access
 - Development
 
-![](brainfuck.assets/image-20210424071528025.png)
+![](Brainfuck.assets/image-20210424071528025.png)
 
 It can be observed that user orestis always signs with the phrase *Orestis - Hacking for fun and profit* on topic **SSH Access**.
 
-![](brainfuck.assets/image-20210424072018596.png)
+![](Brainfuck.assets/image-20210424072018596.png)
 
 However on topic **Key**, the page is encrypted. But the same pattern can be seen as orestis always signs his posts with the same phrase *Orestis - Hacking for fun and profit*.
 
-![](brainfuck.assets/image-20210424072421469.png) 
+![](Brainfuck.assets/image-20210424072421469.png) 
 
 ### Decryption of the posts
 
@@ -232,15 +232,15 @@ After researching the encryption method, it was concluded that it is a one time 
 
 Using the website [https://www.boxentriq.com/code-breaking/one-time-pad](https://www.boxentriq.com/code-breaking/one-time-pad), the key was found to be **BRAINFUCKMYBRAINFUCKMYBRAINFU**
 
-![](brainfuck.assets/image-20210424073446093.png)
+![](Brainfuck.assets/image-20210424073446093.png)
 
 The same result can be crossed check on the website [https://www.dcode.fr/vernam-cipher-vigenere](https://www.dcode.fr/vernam-cipher-vigenere)
 
-![](brainfuck.assets/image-20210424073724663.png)
+![](Brainfuck.assets/image-20210424073724663.png)
 
 When decrypting what appeared to be a link [mnvze://10.10.10.17/8zb5ra10m915218697q1h658wfoq0zc8/frmfycu/sp_ptr](mnvze://10.10.10.17/8zb5ra10m915218697q1h658wfoq0zc8/frmfycu/sp_ptr) with the pad **FUCKMYBRAINFUCKMYBRAINFUCKMYBR**, it resulted to reveal a link to the user orestis ssh public key [https://10.10.10.17/8ba5aa10e915218697d1c658cdee0bb8/orestis/id_rsa](https://10.10.10.17/8ba5aa10e915218697d1c658cdee0bb8/orestis/id_rsa)
 
-![](brainfuck.assets/image-20210424074619202.png)
+![](Brainfuck.assets/image-20210424074619202.png)
 
 ```bash
 curl -sk https://10.10.10.17/8ba5aa10e915218697d1c658cdee0bb8/orestis/id_rsa -o orestis.enc 
@@ -249,7 +249,7 @@ cat orestis.enc
 
 The ssh key is an encrypted key and it needs to be decrypted in order to ssh as the orestis user.
 
-![](brainfuck.assets/image-20210424081016859.png)
+![](Brainfuck.assets/image-20210424081016859.png)
 
 ```
 -----BEGIN RSA PRIVATE KEY-----
@@ -296,7 +296,7 @@ python ./run/ssh2john.py ./hashes/brainfuck-orestis.enc.txt | Out-File ./hashes/
 ./run/john.exe --wordlist="D:/Documents/Bug Bounty/SecLists/Passwords/Leaked-Databases/rockyou.txt" ./hashes/brainfuck-orestis.txt
 ```
 
-![](brainfuck.assets/image-20210424083739076.png)
+![](Brainfuck.assets/image-20210424083739076.png)
 
 ```
 3poulakia!       (.\hashes\brainfuck-orestis.enc.txt)
@@ -315,13 +315,13 @@ chmod 600 orestis.enc
 ssh -i orestis.enc orestis@brainfuck.htb 
 ```
 
-![](brainfuck.assets/image-20210424084309613.png)
+![](Brainfuck.assets/image-20210424084309613.png)
 
 ### User.txt
 
 User.txt can be found in the home directory of orestis.
 
-![](brainfuck.assets/image-20210424084553996.png)
+![](Brainfuck.assets/image-20210424084553996.png)
 
 > user.txt: 2c11cfbc5b959f73ac15a3310bd097c9
 
@@ -333,11 +333,11 @@ There are some uncommon files which are only readable by orestis
 - debug.txt
 - output.txt 
 
-![](brainfuck.assets/image-20210424084857346.png)
+![](Brainfuck.assets/image-20210424084857346.png)
 
 The file **encrypt.sage** is a python script which looks to be doing an RSA cipher on /root/root.txt
 
-![](brainfuck.assets/image-20210424085249183.png) 
+![](Brainfuck.assets/image-20210424085249183.png) 
 
 **encrypt.sage**:
 
@@ -368,14 +368,14 @@ debug.write(str(e)+'\n')
 
 **output.txt** contains **c**, and **debug.txt** contains **p**,**q** and **e** respectively.
 
-![](brainfuck.assets/image-20210424105245632.png)
+![](Brainfuck.assets/image-20210424105245632.png)
 
 The content of **/root/root.txt** can be easily decrypted given all the above information.
 
 
 Using the website [https://www.dcode.fr/rsa-cipher](https://www.dcode.fr/rsa-cipher), the original content of **/root/root.txt** can be obtained.
 
-![](brainfuck.assets/image-20210424090253551.png)
+![](Brainfuck.assets/image-20210424090253551.png)
 
 > root.txt: 6efc1a5dbb8904751ce6566a305bb8ef
 
