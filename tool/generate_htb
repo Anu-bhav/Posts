@@ -10,7 +10,7 @@ output="${input%.*}.pdf"
 
 sed -E -i 's/!\[.*?\]/![]/g' $input
 sed -i "s/DATE_NOW/$(date '+%Y-%m-%d')/" $input
-sed -i "s/doesn't/does not/g" $input
+sed -i "s/n't/ not/g" $input
 
 # if this machine does not have the template in place, put it there!
 if [ ! -e /usr/share/pandoc/data/templates/eisvogel.latex ]
