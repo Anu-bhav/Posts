@@ -71,7 +71,7 @@ The objective is to know what cookies are and their purpose, and to learn how to
 
 More details can be found on the challenge page.
 
-![image-20211203042343205](THM_AdventOfCyber3.assets/image-20211203042343205.png)
+![](THM_AdventOfCyber3.assets/image-20211203042343205.png)
 
 ### **Challenge Walkthrough**
 
@@ -79,19 +79,19 @@ Register an account, and verify the cookies using the Developer Tools in your br
 
 The registration process goes as follows:
 
-![image-20211203042719876](THM_AdventOfCyber3.assets/image-20211203042719876.png)
+![](THM_AdventOfCyber3.assets/image-20211203042719876.png)
 
-![image-20211203042824920](THM_AdventOfCyber3.assets/image-20211203042824920.png)
+![](THM_AdventOfCyber3.assets/image-20211203042824920.png)
 
 It can be determined that the website uses `GET` method to send the sign up data to the server, as all the user input can be seen in the browser’s URL bar.
 
 Once registered, the following is displayed.
 
-![image-20211203043301216](THM_AdventOfCyber3.assets/image-20211203043301216.png)
+![](THM_AdventOfCyber3.assets/image-20211203043301216.png)
 
 What is the name of the new cookie that was created for your account?
 
-![image-20211203043437509](THM_AdventOfCyber3.assets/image-20211203043437509.png)
+![](THM_AdventOfCyber3.assets/image-20211203043437509.png)
 
 >user-auth
 
@@ -105,7 +105,7 @@ What object format is the data of the cookie stored in?
 
 [CyberChef](https://gchq.github.io/CyberChef/) is a simple, intuitive web app for analysing and decoding data without having to deal with complex tools or programming languages. 
 
-![image-20211203044020280](THM_AdventOfCyber3.assets/image-20211203044020280.png)
+![](THM_AdventOfCyber3.assets/image-20211203044020280.png)
 
 The output of the decoded cookie is in JSON or Javascript Object Notation format.
 
@@ -115,7 +115,7 @@ Manipulate the cookie and bypass the login portal.
 
 What is the value of the administrator cookie? (username = admin)
 
-![image-20211203044208882](THM_AdventOfCyber3.assets/image-20211203044208882.png)
+![](THM_AdventOfCyber3.assets/image-20211203044208882.png)
 
 ```
 7b636f6d70616e793a2022546865204265737420466573746976616c20436f6d70616e79222c206973726567697374657265643a2254727565222c20757365726e616d653a2261646d696e227d
@@ -125,13 +125,13 @@ What team environment is not responding?
 
 After replacing the current user’s cookie with the new crafted cookie, admin access is granted
 
-![image-20211203044342791](THM_AdventOfCyber3.assets/image-20211203044342791.png)
+![](THM_AdventOfCyber3.assets/image-20211203044342791.png)
 
 The following page is then displayed upon going to the following URL.
 
 `https://static-labs.tryhackme.cloud/sites/aoc-cookies/monitor.html`
 
-![image-20211203044418843](THM_AdventOfCyber3.assets/image-20211203044418843.png)
+![](THM_AdventOfCyber3.assets/image-20211203044418843.png)
 
 The team that is not responding is `HR`
 
