@@ -142,3 +142,59 @@ What team environment has a network warning?
 The team having network warning is `Application`
 
 >Application
+
+
+
+## [Day 3] `Web Exploitation` Christmas Blackout
+
+This task is based on content discovery.  Content is the assets and inner workings of the application that we are testing. Contents can be files, folders, or pathways that weren't necessarily intended to be accessed by the general public.
+
+![](THM_AdventOfCyber3.assets/image-20211203224537004.png)
+
+More detail can be found on the challenge page.
+
+### Challenge Walkthrough
+
+When deployed, the IP of the machine is provided. In this case the IP is [10.10.87.213](http://10.10.87.213).
+
+To access the machine, a VPN connection is needed so as to access the lab. This can be done as followed.
+
+![](THM_AdventOfCyber3.assets/image-20211203225604950.png)
+
+Then the machine IP can be pinged to see if it responds.
+
+![](THM_AdventOfCyber3.assets/image-20211203225655156.png)
+
+Using a common wordlist for discovering content, enumerate [http://10.10.87.213](http://10.10.87.213) to find the location of the administrator dashboard. What is the name of the folder?
+
+This is the default index page.
+
+![](THM_AdventOfCyber3.assets/image-20211203232041659.png)
+
+![](THM_AdventOfCyber3.assets/image-20211203231521255.png)
+
+This is the /admin page.
+
+![](THM_AdventOfCyber3.assets/image-20211203232134491.png)
+
+>admin
+
+In your web browser, try some default credentials on the newly discovered login form for the "**administrator**" user. What is the password?
+
+The challenge page provided some default credentials.
+
+![](THM_AdventOfCyber3.assets/image-20211203232310465.png)
+
+
+
+![](THM_AdventOfCyber3.assets/image-20211203232225379.png)
+
+The valid credential is username: `administrator` and password: `administrator` 
+
+>administrator
+
+Access the admin panel. What is the value of the flag?
+
+![](THM_AdventOfCyber3.assets/image-20211203232625213.png)
+
+>THM{Fake_Flag}
